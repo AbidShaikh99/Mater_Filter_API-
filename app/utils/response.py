@@ -3,7 +3,6 @@ from fastapi.responses import JSONResponse
 
 class ResponseUtil:
 
-    @staticmethod
     def success(data=None, message="Success", **kwargs):
         response = {
             "status": True,
@@ -15,7 +14,7 @@ class ResponseUtil:
 
         return response
 
-    @staticmethod
+    
     def error(message, status_code=400):
         return JSONResponse(
             status_code=status_code,
