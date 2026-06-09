@@ -1,15 +1,17 @@
-from fastapi import APIRouter, Request
+from typing import Annotated
 
-from app.api.services import filter_products, search_products
+from fastapi import APIRouter, Depends
+from app.api.services import filter_products_service, search_products_service
+from app.schemas.product_schema import ProductFilterRequest, ProductSearchRequest
 
 router = APIRouter()
 
 
 @router.post("/products/filter/")
-async def product_filter(request: Request):
-    body = await request.json()
-    return filter_products(body)
-    
-@router.get('/product/search/')
-async def search_product(search: str):
-    return search_products(search)
+async def product_filter(payload: ProductFilterRequest):
+    return filter_products_service(payload)
+
+
+@router.get("/product/search/")
+async def search_product(query: Annotated[ProductSearchRequest, Depends()]):
+    return search_products_service(query.search)
