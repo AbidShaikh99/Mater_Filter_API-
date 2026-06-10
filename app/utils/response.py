@@ -1,4 +1,6 @@
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+from fastapi import FastAPI, Request
 
 
 class ResponseUtil:
@@ -23,3 +25,11 @@ class ResponseUtil:
                 "message": message
             }
         )
+# app = FastAPI() 
+# @app.exception_handler(RequestValidationError)
+# async def validation_exception_handler(request: Request, exc: RequestValidationError):
+#     errors = exc.errors()
+#     message = "Validation error"
+#     if errors:
+#         message = errors[0].get("msg", message)
+#     return ResponseUtil.error(message)
